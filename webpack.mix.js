@@ -4,6 +4,11 @@ const mix = require('laravel-mix');
 const Dotenv = require('dotenv-webpack');
 
 mix.disableNotifications();
+mix.options({
+  manifest: false,
+});
+
+const buildTarget = process.env.BUILD_TARGET || 'chrome';
 
 mix
   .ts('src/scripts/background.ts', '')
@@ -24,6 +29,7 @@ mix
     processCssUrls: false,
   })
   .copy('src/static', 'build')
+  .copy(`src/manifest.${buildTarget}.json`, 'build/manifest.json')
   .setPublicPath('build');
 
 mix.webpackConfig({

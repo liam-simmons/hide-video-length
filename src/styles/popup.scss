@@ -1,16 +1,18 @@
+@import 'config/all';
+
 :root {
   --selected: #004266;
   --border-grey: #828282;
 }
 
 body {
-  width: 200px;
+  width: 300px;
   height: 400px;
-  padding: 1em;
+  margin: 0;
 
-  #popup {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  #app {
+    width: 100%;
+    height: 100%;
+    margin: 0;
   }
 }

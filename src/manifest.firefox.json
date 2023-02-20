@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Video Length Hider",
+  "version": "1.0",
+
+  "description": "Hide video lengths",
+
+  "background": {
+    "scripts": ["background.js"]
+  },
+
+  "action": {
+    "default_icon": {
+      "48": "assets/icons/ext-icon.svg"
+    },
+    "default_title": "Video Length Hider",
+    "default_popup": "popup.html"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "js": ["content.js"]
+    }
+  ],
+
+  "permissions": [
+    "storage"
+  ]
+}
