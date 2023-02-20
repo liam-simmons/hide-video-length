@@ -1,4 +1,3 @@
-import { getURL } from './utilities/options';
 import * as Settings from './utilities/settings';
 
 /**
@@ -40,6 +39,10 @@ async function hideVideoLengths(
 }
 
 async function checkYoutube(): Promise<void> {
+  if (!(await Settings.get('activated'))) {
+    return;
+  }
+
   const toHideTitles = await Settings.get('youtubeVideoTitles');
 
   if (typeof toHideTitles === 'string') {

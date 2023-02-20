@@ -38,6 +38,13 @@ export default defineComponent({
       Browser.tabs.create({ url: Options.getURL() });
     },
   },
+  watch: {
+    activated(newValue, oldValue) {
+      if (newValue !== Settings.get('activated')) {
+        Settings.set('activated', !!newValue);
+      }
+    },
+  },
 });
 
 interface Data {
