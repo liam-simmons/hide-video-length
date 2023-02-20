@@ -1,0 +1,16 @@
+:root {
+  --selected: #004266;
+  --border-grey: #828282;
+}
+
+body {
+  width: 200px;
+  height: 400px;
+  padding: 1em;
+
+  #popup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

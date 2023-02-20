@@ -1,0 +1,40 @@
+{
+  "name": "video-length-hider",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "cross-env node_modules/webpack/bin/webpack.js --progress --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "npm run build -- --watch"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/vue": "^2.0.0",
+    "@types/webextension-polyfill": "^0.9.0",
+    "@typescript-eslint/eslint-plugin": "^5.29.0",
+    "@typescript-eslint/parser": "^5.29.0",
+    "@vue/eslint-config-typescript": "^11.0.0",
+    "cross-env": "^7.0.3",
+    "dotenv-webpack": "^7.1.0",
+    "eslint": "^8.18.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^9.1.1",
+    "laravel-mix": "^6.0.49",
+    "prettier": "^2.7.1",
+    "resolve-url-loader": "^5.0.0",
+    "sass": "^1.49.9",
+    "sass-loader": "^12.1.0",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.5.5",
+    "vue-eslint-parser": "^9.0.3",
+    "vue-loader": "^16.2.0",
+    "webextension-polyfill": "^0.9.0"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.1",
+    "vue": "^3.2.37",
+    "zod": "^3.17.3"
+  }
+}
