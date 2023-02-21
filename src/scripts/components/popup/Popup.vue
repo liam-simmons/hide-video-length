@@ -39,7 +39,7 @@ export default defineComponent({
     },
   },
   watch: {
-    activated(newValue, oldValue) {
+    activated(newValue: unknown) {
       if (newValue !== Settings.get('activated')) {
         Settings.set('activated', !!newValue);
       }
