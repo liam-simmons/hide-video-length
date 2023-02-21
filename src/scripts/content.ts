@@ -1,4 +1,6 @@
 import * as Settings from './utilities/settings';
+import * as Prefixing from './utilities/prefixing';
+import { throttle } from 'lodash';
 
 /**
  * Hides video lengths on YouTube based on certain text values.
@@ -32,13 +34,16 @@ async function hideVideoLengths(
       const isMatch = exactMatch ? elementText === searchText : elementText.includes(searchText);
 
       if (isMatch) {
-        parentElement.querySelectorAll(hideSelector)?.forEach((element) => element.classList.add('hidden'));
+        parentElement
+          .querySelectorAll(hideSelector)
+          ?.forEach((element) => element.classList.add(Prefixing.prefix('hidden')));
       }
     });
   });
 }
 
 async function checkYoutube(): Promise<void> {
+  console.log('check youtube');
   if (!(await Settings.get('activated'))) {
     return;
   }
@@ -150,4 +155,39 @@ async function checkYoutube(): Promise<void> {
   }
 }
 
-setInterval(checkYoutube, 500);
+const throttledRun = throttle(checkYoutube, 500);
+const triggeredNodes = new Set();
+
+// Create a new MutationObserver object
+const observer = new MutationObserver(function (mutations) {
+  // Loop through each mutation that was observed
+  outerLoop: for (const mutation of mutations) {
+    // Check if any nodes were added or removed from the page
+    if (mutation.type === 'childList') {
+      for (const node of Array.from(mutation.addedNodes)) {
+        // Only worry about nodes that we want to check
+        if (
+          node instanceof Element &&
+          node.matches(
+            'ytd-rich-grid-media, ytd-grid-video-renderer, ytd-watch-flexy, ytd-video-renderer, ytd-playlist-video-renderer, ytd-compact-video-renderer',
+          )
+        ) {
+          // Don't repeat the process for nodes
+          if (!triggeredNodes.has(node)) {
+            triggeredNodes.add(node);
+            throttledRun();
+            break outerLoop;
+          }
+        }
+      }
+    }
+  }
+});
+
+// Styles
+const styleElement = document.createElement('style');
+styleElement.textContent = `.${Prefixing.prefix('hidden')} { display: none !important; }`;
+document.body.appendChild(styleElement);
+
+// Start observing changes to the DOM
+observer.observe(document, { childList: true, subtree: true });
