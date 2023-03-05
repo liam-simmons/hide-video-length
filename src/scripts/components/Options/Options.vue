@@ -31,6 +31,8 @@ import Container from '../Container.vue';
 import Slider from '../Slider.vue';
 import * as Settings from '../../utilities/settings';
 import { defineComponent } from '@vue/runtime-core';
+import { zParse } from '../../types/zod';
+import { z } from 'zod';
 
 export default defineComponent({
   name: 'OptionsApp',
@@ -39,9 +41,9 @@ export default defineComponent({
     return { activated: false, youtubeChannelNames: '', youtubeVideoTitles: '' };
   },
   async mounted() {
-    this.activated = (await Settings.get('activated')) || false;
-    this.youtubeChannelNames = (await Settings.get('youtubeChannelNames')) || '';
-    this.youtubeVideoTitles = (await Settings.get('youtubeVideoTitles')) || '';
+    this.activated = !!(await Settings.get('activated'));
+    this.youtubeChannelNames = zParse(z.string(), await Settings.get('youtubeChannelNames')) || '';
+    this.youtubeVideoTitles = zParse(z.string(), await Settings.get('youtubeVideoTitles')) || '';
   },
   methods: {
     submit() {

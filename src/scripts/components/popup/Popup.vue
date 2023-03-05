@@ -28,7 +28,7 @@ export default defineComponent({
     return { activated: false, optionsURL: Options.getURL() };
   },
   async mounted() {
-    this.activated = (await Settings.get('activated')) || false;
+    this.activated = !!(await Settings.get('activated'));
   },
   methods: {
     submit() {
